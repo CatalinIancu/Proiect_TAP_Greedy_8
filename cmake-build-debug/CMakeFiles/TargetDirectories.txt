@@ -1,0 +1,3 @@
+D:/FACULTATE/Facultate An II/Tehnici avansate de programare/Proiect/Proiect_TAP_Greedy_8/cmake-build-debug/CMakeFiles/Proiect_TAP_Greedy_8.dir
+D:/FACULTATE/Facultate An II/Tehnici avansate de programare/Proiect/Proiect_TAP_Greedy_8/cmake-build-debug/CMakeFiles/edit_cache.dir
+D:/FACULTATE/Facultate An II/Tehnici avansate de programare/Proiect/Proiect_TAP_Greedy_8/cmake-build-debug/CMakeFiles/rebuild_cache.dir
