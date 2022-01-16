@@ -11,12 +11,17 @@ struct Solicitare
     int durataCazarii;
 };
 
+int numarCamere, numarSolicitari, minimEliberare;
+int counterSolicitariOnorate = 0;
+vector <Solicitare> solicitariCazare;
+vector <Solicitare> camereOcupate;
+
 bool Cmp(Solicitare i, Solicitare j)
 {
     return (i.ziuaCazarii + i.durataCazarii < j.ziuaCazarii + j.durataCazarii);
 }
 
-void CitireFisier(int &numarCamere, int &numarSolicitari, vector <Solicitare> &solicitariCazare)
+void CitireFisier()
 {
     ifstream fin("Input.in");
     fin >> numarCamere;
@@ -30,24 +35,20 @@ void CitireFisier(int &numarCamere, int &numarSolicitari, vector <Solicitare> &s
     }
 }
 
-void SortareSolicitari(vector <Solicitare> &solicitariCazare)
+void SortareSolicitari(vector <Solicitare> vectorDeSortat)
 {
-    sort(solicitariCazare.begin(), solicitariCazare.end(), Cmp);
+    sort(vectorDeSortat.begin(), vectorDeSortat.end(), Cmp);
 }
 
-void AfisareVector(vector <Solicitare> solicitariCazare)
+void AfisareVector(vector <Solicitare> vectorDeAfisat)
 {
-    cout << "Test: " << endl;
-    for (int i = 0; i < solicitariCazare.size(); i++)
+    for (int i = 0; i < vectorDeAfisat.size(); i++)
     {
-        cout << "Solicitare " << i << ": " << endl;
-        cout << solicitariCazare[i].ziuaCazarii << " " << solicitariCazare[i].durataCazarii << endl;
+        cout << vectorDeAfisat[i].ziuaCazarii << " " << vectorDeAfisat[i].durataCazarii << endl;
     }
 }
 
-void InitializareCamere(int &minimEliberare, int &numarCamere, int &counterSolicitariOnorate,
-                        vector <Solicitare> &camereOcupate,
-                        vector <Solicitare> &solicitariCazare)
+void InitializareCamere()
 {
     int stop = numarCamere;
     minimEliberare = solicitariCazare[0].ziuaCazarii + solicitariCazare[0].durataCazarii;
@@ -59,7 +60,6 @@ void InitializareCamere(int &minimEliberare, int &numarCamere, int &counterSolic
             {
                 numarCamere++;
             }
-
             camereOcupate.push_back(solicitariCazare[0]);
             solicitariCazare.erase(solicitariCazare.begin());
             numarCamere--;
@@ -68,9 +68,7 @@ void InitializareCamere(int &minimEliberare, int &numarCamere, int &counterSolic
     }
 }
 
-void ParcurgereAn(int &minimEliberare, int &numarCamere, int &counterSolicitariOnorate,
-                  vector <Solicitare> &camereOcupate,
-                  vector <Solicitare> &solicitariCazare)
+void ParcurgereAn()
 {
     for (int i = 1; i <= 365; i++)
     {
@@ -108,16 +106,19 @@ void ParcurgereAn(int &minimEliberare, int &numarCamere, int &counterSolicitariO
 
 int main()
 {
-    int numarCamere, numarSolicitari, minimEliberare;
-    int counterSolicitariOnorate = 0;
-    vector <Solicitare> solicitariCazare;
-    vector <Solicitare> camereOcupate;
-    camereOcupate.resize(numarCamere);
-    CitireFisier(numarCamere, numarSolicitari, solicitariCazare);
+    CitireFisier();
     SortareSolicitari(solicitariCazare);
+
+    cout << "Toate solicitarile ordonate: ";
+    cout << endl;
     AfisareVector(solicitariCazare);
-    InitializareCamere(minimEliberare, numarCamere, counterSolicitariOnorate, camereOcupate, solicitariCazare);
-    ParcurgereAn(minimEliberare, numarCamere, counterSolicitariOnorate, camereOcupate, solicitariCazare);
-    cout << "numarSolicitariOnorate: " << counterSolicitariOnorate << endl;
+
+    InitializareCamere();
+    ParcurgereAn();
+
+    cout << endl;
+    cout << "Solicitari onorate: ";
+    cout << counterSolicitariOnorate;
+    cout << endl;
     return 0;
 }
